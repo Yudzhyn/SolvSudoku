@@ -1,4 +1,5 @@
 import numpy as np
+from print import print_square
 
 # CONSTANTS
 # all possible number in game
@@ -17,4 +18,9 @@ SQUARE_TEST = np.array([[ 0, 0, 4,   0, 0, 0,   0, 6, 7 ],
                         [ 6, 0, 0,   0, 1, 2,   0, 0, 0 ],
                         [ 9, 3, 0,   0, 0, 0,   7, 1, 0 ] ], dtype=np.short)
 
+def main():
+    pass
 
+main()
+
+print_square(SQUARE_TEST)
