@@ -2,7 +2,7 @@ import numpy as np
 
 
 # all possible number in game
-NUMBERS_LIST = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9], dtype=np.short)
+NUMBERS_LIST = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9], dtype=np.int8)
 
 SQUARE_TEST = np.array([[ 0, 0, 4,   0, 0, 0,   0, 6, 7 ],
                         [ 3, 0, 0,   4, 7, 0,   0, 0, 5 ],
@@ -14,7 +14,7 @@ SQUARE_TEST = np.array([[ 0, 0, 4,   0, 0, 0,   0, 6, 7 ],
 
                         [ 7, 0, 0,   0, 8, 0,   0, 4, 6 ],
                         [ 6, 0, 0,   0, 1, 2,   0, 0, 0 ],
-                        [ 9, 3, 0,   0, 0, 0,   7, 1, 0 ] ], dtype=np.short)
+                        [ 9, 3, 0,   0, 0, 0,   7, 1, 0 ] ], dtype=np.int8)
 
 sub_square_test = SQUARE_TEST[0:3, 0:3]
 
@@ -38,7 +38,7 @@ def create_list_sub_squares(square):
         row_start += 3
         row_finish += 3
 
-    sub_squares_list = np.array(sub_squares_list, dtype=np.short)
+    sub_squares_list = np.array(sub_squares_list, dtype=np.int8)
     return sub_squares_list
 
 # видає список відсутніх чисел у підквадраті

@@ -3,7 +3,7 @@ from print import print_square
 
 # CONSTANTS
 # all possible number in game
-NUMBERS_LIST = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9], dtype=np.short)
+NUMBERS_LIST = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9], dtype=np.int8)
 
 # TEST SQUARE
 SQUARE_TEST = np.array([[ 0, 0, 4,   0, 0, 0,   0, 6, 7 ],
@@ -16,7 +16,7 @@ SQUARE_TEST = np.array([[ 0, 0, 4,   0, 0, 0,   0, 6, 7 ],
 
                         [ 7, 0, 0,   0, 8, 0,   0, 4, 6 ],
                         [ 6, 0, 0,   0, 1, 2,   0, 0, 0 ],
-                        [ 9, 3, 0,   0, 0, 0,   7, 1, 0 ] ], dtype=np.short)
+                        [ 9, 3, 0,   0, 0, 0,   7, 1, 0 ] ], dtype=np.int8)
 
 def main():
     pass
