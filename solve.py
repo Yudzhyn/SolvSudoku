@@ -1,10 +1,12 @@
 import numpy as np
 
-
 # all possible number in game
 NUMBERS_LIST = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9], dtype=np.int8)
 
-SQUARE_TEST = np.array([[ 0, 0, 4,   0, 0, 0,   0, 6, 7 ],
+# розмір матриці NxN
+MATRIX_SIZE = 9
+
+MATRIX      = np.array([[ 0, 0, 4,   0, 0, 0,   0, 6, 7 ],
                         [ 3, 0, 0,   4, 7, 0,   0, 0, 5 ],
                         [ 1, 5, 0,   8, 2, 0,   0, 0, 3 ],
 
@@ -16,10 +18,14 @@ SQUARE_TEST = np.array([[ 0, 0, 4,   0, 0, 0,   0, 6, 7 ],
                         [ 6, 0, 0,   0, 1, 2,   0, 0, 0 ],
                         [ 9, 3, 0,   0, 0, 0,   7, 1, 0 ] ], dtype=np.int8)
 
-sub_square_test = SQUARE_TEST[0:3, 0:3]
+sub_square_test = MATRIX[0:3, 0:3]
 
-# створює список підквадратів
 def create_list_sub_squares(square):
+    """
+        Функція створює та повертає список підматриць.
+
+        Type return: np.array
+    """
 
     sub_squares_list = []
     row_start = 0
@@ -29,7 +35,7 @@ def create_list_sub_squares(square):
 
     for tmp1 in range(0, 3):
         for tmp2 in range(0, 3):
-            sub_square = np.array(SQUARE_TEST[row_start : row_finish, column_start : column_finish])
+            sub_square = np.array(MATRIX[row_start : row_finish, column_start : column_finish])
             sub_squares_list.append(sub_square)
             column_start += 3
             column_finish += 3
@@ -41,10 +47,55 @@ def create_list_sub_squares(square):
     sub_squares_list = np.array(sub_squares_list, dtype=np.int8)
     return sub_squares_list
 
-# видає список відсутніх чисел у підквадраті
+
 def determine_missing_numbers_square(sub_square):
-    present_numbers = sub_square[sub_square>0]
+    """
+        Функція видає список відсутніх чисел-елементів у підматриці головної матриці Судоку.
+
+        Type return: np.array
+    """
+    present_numbers = sub_square[sub_square > 0]
     return np.setxor1d(NUMBERS_LIST, present_numbers)
 
-create_list_sub_squares(SQUARE_TEST)
 
+def check_number_in_row_and_column(checking_number, number_index):
+    """
+        Дана функція реалізована для переверки наявності аналогічного номеру
+        в колонці або рядку.
+        Якщо елемент знайдено, то функція повертає True, інакше -- False.
+
+        Type return: bool
+    """
+
+    def passing_row():
+        # перевірка по колонці
+        for i in range(MATRIX_SIZE):
+            if MATRIX[i][j_check_index] == checking_number:
+                return True
+
+    def passing_column():
+        # перевірка по рядку
+        for j in range(MATRIX_SIZE):
+            if MATRIX[i_check_index][j] == checking_number:
+                return True
+
+    # i_index -- row, j_index -- column, elmenent_index -- tuple
+    i_check_index, j_check_index = number_index
+
+    # прапорець щодо присутності елемента у рядку або колонці
+    number_present_flag = False
+
+    # якщо елемент вже присутній в колонці -- перериваємо функцію і повертаємо True
+    if passing_column() == True:
+        return True
+
+    # якщо елемент вже присутній в рядку -- перериваємо функцію і повертаємо True
+    if passing_row() == True:
+        return True
+
+    # якщо елемент відсутній в рядку та в колонці -- функція повертає False
+    return False
+
+
+
+print(check_number_in_row_and_column(2, (1,1)))
