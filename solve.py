@@ -57,11 +57,28 @@ def determine_missing_numbers_square(sub_square):
     present_numbers = sub_square[sub_square > 0]
     return np.setxor1d(NUMBERS_LIST, present_numbers)
 
+def empty_indexes(sub_square, return_len = 0):
+    """
+        Функція видає список індекси пустих комірок підматриці головної матриці Судоку.
+        Додаткова особливість даної функції є те, коли потрібно тільки отримати тільки
+        кількість пустих елементів то потрібно подати другим аргументом <1>.
+
+        Type return: int                ? 1
+        Type return: np.array           ? 0
+    """
+    indexes_tmp = np.where(sub_square == 0)
+
+    if return_len == 1:
+        return len(indexes_tmp[0])
+
+    indexes_empty = np.array(list(zip(indexes_tmp[0], indexes_tmp[1])), dtype=np.short)
+    return indexes_empty
+
 
 def check_number_in_row_and_column(checking_number, number_index):
     """
-        Дана функція реалізована для переверки наявності аналогічного номеру
-        в колонці або рядку.
+        Дана функція реалізована для перевірки наявності аналогічного номеру
+         елменту в колонці або рядку.
         Якщо елемент знайдено, то функція повертає True, інакше -- False.
 
         Type return: bool
@@ -79,7 +96,7 @@ def check_number_in_row_and_column(checking_number, number_index):
             if MATRIX[i_check_index][j] == checking_number:
                 return True
 
-    # i_index -- row, j_index -- column, elmenent_index -- tuple
+    # i_index -- row, j_index -- column, elmenent_index -- tuple or list
     i_check_index, j_check_index = number_index
 
     # прапорець щодо присутності елемента у рядку або колонці
@@ -96,6 +113,20 @@ def check_number_in_row_and_column(checking_number, number_index):
     # якщо елемент відсутній в рядку та в колонці -- функція повертає False
     return False
 
+def amount_possible_location_element(sub_square, number):
+    """
+        Функція видає кількість можливих розташувань елементу у підматриці та
+        та індекси даних розташувань.
 
+        Type return: list [int, np.array]
+    """
+    checking_indexes = empty_indexes(sub_square)
+    amount_of_element = 0
+    indexes = []
 
-print(check_number_in_row_and_column(2, (1,1)))
+    for index in checking_indexes:
+        if check_number_in_row_and_column(number, index) == False:
+            amount_of_element += 1
+            indexes.append(index)
+
+    return [amount_of_element, np.array(indexes, dtype=np.short)]
